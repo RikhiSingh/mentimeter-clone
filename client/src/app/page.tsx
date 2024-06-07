@@ -1,8 +1,12 @@
 import { Icons } from "@/components/icons";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import TopicCreator from "@/components/topic-creator";
+import { redis } from "@/lib/redis";
+import { Star } from "lucide-react";
 
-export default function Home() {
+export default async function Home() {
+  const serverRequests = await redis.get("served-requests");
+
   return (
     <section className="min-h-screen bg-grid-zinc-50">
       <MaxWidthWrapper className="relative pb-24 pt-10 sm:pb-32 lg:pt-24 xl:pt-32 lg:pb-52">
@@ -18,8 +22,8 @@ export default function Home() {
                 th
                 <span className="relative">
                   i
-                  <span className="absolute inset-x-0 -top-2 -translate-x-3">
-                    <Icons.brain className="h-7 w-7 md:h-8 md:w-8"/>
+                  <span className="absolute right-0 left-[3px] -top-[4px] -translate-x-3">
+                    <Icons.brain className="h-7 w-7 md:h-8 md:w-8" />
                   </span>
                 </span>
                 nk
@@ -32,8 +36,19 @@ export default function Home() {
             <div className="mt-12 flex flex-col sm:flex-row items-center sm:items-start gap-5">
               <div className="flex flex-col gap-1 justify-between items-center sm:items-start">
                 <div className="flex gap-0.5">
-                  
+                  <Star className="h-4 w-4 text-green-400 fill-green-400" />
+                  <Star className="h-4 w-4 text-green-400 fill-green-400" />
+                  <Star className="h-4 w-4 text-green-400 fill-green-400" />
+                  <Star className="h-4 w-4 text-green-400 fill-green-400" />
+                  <Star className="h-4 w-4 text-green-400 fill-green-400" />
                 </div>
+
+                <p>
+                  <span className="font-semibold">
+                    {Math.ceil(Number(serverRequests) / 10) * 10}
+                  </span>{" "}
+                  served requests
+                </p>
               </div>
             </div>
           </div>
