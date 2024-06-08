@@ -1,3 +1,4 @@
+import { Footer } from "@/components/footer";
 import { Icons } from "@/components/icons";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import TopicCreator from "@/components/topic-creator";
@@ -54,6 +55,7 @@ export default async function Home() {
           </div>
         </div>
       </MaxWidthWrapper>
+      <Footer />
     </section>
   );
 }

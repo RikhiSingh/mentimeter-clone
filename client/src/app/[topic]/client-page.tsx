@@ -81,13 +81,13 @@ const ClientPage = ({ topicName, initialData }: ClientPageProps) => {
 
   return (
     <div className="w-full flex flex-col items-center justify-center min-h-screen bg-grid-zinc-50 pb-20">
-      <MaxWidthWrapper className="flex flex-col items-center gap-6 pt-20">
+      <MaxWidthWrapper className="flex flex-col items-center gap-6 pt-10">
         <h1 className="text-4xl sm:text-5xl font-bold text-center tracking-tight text-balance">
           What people think about{" "}
           <span className="text-blue-600">{topicName}</span>:
         </h1>
 
-        <p className="text-sm">(updated in real-time)</p>
+        <p className="text-sm mt-[-10px]">(updated in real-time)</p>
 
         <div className="aspect-square max-w-xl flex items-center justify-center">
           <Wordcloud
@@ -118,9 +118,9 @@ const ClientPage = ({ topicName, initialData }: ClientPageProps) => {
           </Wordcloud>
         </div>
 
-        <div className="max-w-lg w-full">
+        <div className="max-w-lg w-full pb-10">
           <Label className="font-semibold tracking-tight text-lg pb-2">
-            Here's what I think about {topicName}
+            Here's what I think about "{topicName}"
           </Label>
           <div className="mt-1 flex gap-2 items-center">
             <Input
