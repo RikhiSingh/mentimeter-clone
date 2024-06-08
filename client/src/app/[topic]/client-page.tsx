@@ -10,10 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitComment } from "../actions";
-import { io } from "socket.io-client";
 import { Footer } from "@/components/footer";
-
-const socket = io("");
 
 interface ClientPageProps {
   topicName: string;
@@ -27,46 +24,26 @@ const ClientPage = ({ topicName, initialData }: ClientPageProps) => {
   const [input, setInput] = useState<string>("");
 
   useEffect(() => {
-    // based on the format that we have in server's index.ts where we routing using express
-    // socket.on("join-room", async (room: string)
-    socket.emit("join-room", `room:${topicName}`);
+    const fetchData = async () => {
+      try {
+        // Make an HTTP request to your serverless function endpoint
+        const response = await fetch(`/api/get-words?topicName=${topicName}`);
+        const data = await response.json();
+        setWords(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    // Fetch initial data
+    fetchData();
+
+    // Fetch updated data every 5 seconds
+    const intervalId = setInterval(fetchData, 5000);
+
+    // Cleanup function to clear the interval
+    return () => clearInterval(intervalId);
   }, [topicName]);
-
-  useEffect(() => {
-    // will match io.to(channel).emit("room-update", message)
-    socket.on("room-update", (message: string) => {
-      const data = JSON.parse(message) as {
-        text: string;
-        value: number;
-      }[];
-
-      data.map((newWord) => {
-        const isWordAlreadyIncluded = words.some(
-          (word) => word.text === newWord.text
-        );
-
-        if (isWordAlreadyIncluded) {
-          //increment
-          setWords((prev) => {
-            const before = prev.find((word) => word.text === newWord.text);
-            const rest = prev.filter((word) => word.text !== newWord.text);
-
-            return [
-              ...rest,
-              { text: before!.text, value: before!.value + newWord.value },
-            ];
-          });
-        } else if (words.length < 69) {
-          // add to state
-          setWords((prev) => [...prev, newWord]);
-        }
-      });
-    });
-
-    return ()=>{
-      socket.off("room-update")
-    }
-  }, [words]);
 
   const fontScale = scaleLog({
     domain: [
