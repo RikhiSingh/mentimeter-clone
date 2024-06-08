@@ -1,7 +1,9 @@
 import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
 import { Icons } from "@/components/icons";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import TopicCreator from "@/components/topic-creator";
+import { Separator } from "@/components/ui/separator";
 import { redis } from "@/lib/redis";
 import { Star } from "lucide-react";
 
@@ -10,6 +12,8 @@ export default async function Home() {
 
   return (
     <section className="min-h-screen bg-grid-zinc-50">
+      <Header />
+      <Separator />
       <MaxWidthWrapper className="relative pb-24 pt-10 sm:pb-32 lg:pt-24 xl:pt-32 lg:pb-52">
         <div className="hidden lg:block absolute inset-0 top-8">
           {/* circle */}
@@ -34,8 +38,8 @@ export default async function Home() {
 
             <TopicCreator />
 
-            <div className="mt-12 flex flex-col sm:flex-row items-center sm:items-start gap-5">
-              <div className="flex flex-col gap-1 justify-between items-center sm:items-start">
+            <div className="mt-12 flex flex-col sm:flex-row items-center  gap-5">
+              <div className="flex flex-col gap-1 justify-between items-center ">
                 <div className="flex gap-0.5">
                   <Star className="h-4 w-4 text-green-400 fill-green-400" />
                   <Star className="h-4 w-4 text-green-400 fill-green-400" />
@@ -54,8 +58,9 @@ export default async function Home() {
             </div>
           </div>
         </div>
-      </MaxWidthWrapper>
+        <div className="mt-40 lg:pt-24 xl:pt-32"/>
       <Footer />
+      </MaxWidthWrapper>
     </section>
   );
 }

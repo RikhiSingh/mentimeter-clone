@@ -11,6 +11,8 @@ import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitComment } from "../actions";
 import { Footer } from "@/components/footer";
+import { HeaderClient } from "@/components/header-client";
+import { Separator } from "@/components/ui/separator";
 
 interface ClientPageProps {
   topicName: string;
@@ -47,6 +49,8 @@ const ClientPage = ({ topicName, initialData }: ClientPageProps) => {
 
   return (
     <div className="w-full flex flex-col items-center justify-center min-h-screen bg-grid-zinc-50 pb-20">
+      <HeaderClient />
+      <Separator />
       <MaxWidthWrapper className="flex flex-col items-center gap-6 pt-10">
         <h1 className="text-4xl sm:text-5xl font-bold text-center tracking-tight text-balance">
           What people think about{" "}
