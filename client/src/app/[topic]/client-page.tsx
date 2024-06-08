@@ -30,7 +30,7 @@ const ClientPage = ({ topicName, initialData }: ClientPageProps) => {
     // based on the format that we have in server's index.ts where we routing using express
     // socket.on("join-room", async (room: string)
     socket.emit("join-room", `room:${topicName}`);
-  }, []);
+  }, [topicName]);
 
   useEffect(() => {
     // will match io.to(channel).emit("room-update", message)
@@ -121,7 +121,7 @@ const ClientPage = ({ topicName, initialData }: ClientPageProps) => {
 
         <div className="max-w-lg w-full pb-10">
           <Label className="font-semibold tracking-tight text-lg pb-2">
-            Here's what I think about "{topicName}"
+            Here&apos;s what I think about &lsquo;{topicName}&rsquo;
           </Label>
           <div className="mt-1 flex gap-2 items-center">
             <Input
