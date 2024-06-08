@@ -13,7 +13,7 @@ import { SubmitComment } from "../actions";
 import { io } from "socket.io-client";
 import { Footer } from "@/components/footer";
 
-const socket = io("http://localhost:8080");
+const socket = io("");
 
 interface ClientPageProps {
   topicName: string;
