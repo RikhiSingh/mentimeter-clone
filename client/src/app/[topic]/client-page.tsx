@@ -61,7 +61,7 @@ const ClientPage = ({ topicName, initialData }: ClientPageProps) => {
           setWords((prev) => [...prev, newWord]);
         }
       });
-    });
+    },[]);
 
     return ()=>{
       socket.off("room-update")
