@@ -23,27 +23,6 @@ const ClientPage = ({ topicName, initialData }: ClientPageProps) => {
   const [words, setWords] = useState(initialData);
   const [input, setInput] = useState<string>("");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Make an HTTP request to your serverless function endpoint
-        const response = await fetch(`/api/get-words?topicName=${topicName}`);
-        const data = await response.json();
-        setWords(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    // Fetch initial data
-    fetchData();
-
-    // Fetch updated data every 5 seconds
-    const intervalId = setInterval(fetchData, 5000);
-
-    // Cleanup function to clear the interval
-    return () => clearInterval(intervalId);
-  }, [topicName]);
 
   const fontScale = scaleLog({
     domain: [
@@ -55,6 +34,15 @@ const ClientPage = ({ topicName, initialData }: ClientPageProps) => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: SubmitComment,
+    onSuccess: () => {
+      // Clear input box
+      setInput("");
+
+      // Perform page reload after 1 second
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    },
   });
 
   return (
