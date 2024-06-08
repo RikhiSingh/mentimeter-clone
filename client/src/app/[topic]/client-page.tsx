@@ -1,7 +1,7 @@
 "use client";
 
 import MaxWidthWrapper from "@/components/max-width-wrapper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Wordcloud } from "@visx/wordcloud";
 import { scaleLog } from "@visx/scale";
 import { Text } from "@visx/text";
@@ -10,6 +10,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitComment } from "../actions";
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:8080");
 
 interface ClientPageProps {
   topicName: string;
@@ -21,6 +24,48 @@ const COLORS = ["#143059", "#2F6B9A", "#82A6C2"];
 const ClientPage = ({ topicName, initialData }: ClientPageProps) => {
   const [words, setWords] = useState(initialData);
   const [input, setInput] = useState<string>("");
+
+  useEffect(() => {
+    // based on the format that we have in server's index.ts where we routing using express
+    // socket.on("join-room", async (room: string)
+    socket.emit("join-room", `room:${topicName}`);
+  }, []);
+
+  useEffect(() => {
+    // will match io.to(channel).emit("room-update", message)
+    socket.on("room-update", (message: string) => {
+      const data = JSON.parse(message) as {
+        text: string;
+        value: number;
+      }[];
+
+      data.map((newWord) => {
+        const isWordAlreadyIncluded = words.some(
+          (word) => word.text === newWord.text
+        );
+
+        if (isWordAlreadyIncluded) {
+          //increment
+          setWords((prev) => {
+            const before = prev.find((word) => word.text === newWord.text);
+            const rest = prev.filter((word) => word.text !== newWord.text);
+
+            return [
+              ...rest,
+              { text: before!.text, value: before!.value + newWord.value },
+            ];
+          });
+        } else if (words.length < 69) {
+          // add to state
+          setWords((prev) => [...prev, newWord]);
+        }
+      });
+    });
+
+    return ()=>{
+      socket.off("room-update")
+    }
+  }, [words]);
 
   const fontScale = scaleLog({
     domain: [
