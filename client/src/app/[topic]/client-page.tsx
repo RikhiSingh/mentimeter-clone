@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitComment } from "../actions";
 import { io } from "socket.io-client";
+import { Footer } from "@/components/footer";
 
 const socket = io("http://localhost:8080");
 
@@ -136,6 +137,7 @@ const ClientPage = ({ topicName, initialData }: ClientPageProps) => {
             </Button>
           </div>
         </div>
+        <Footer />
       </MaxWidthWrapper>
     </div>
   );
