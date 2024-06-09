@@ -5,9 +5,9 @@ import Link from "next/link";
 export const Footer = () => {
     return (
         <footer className="lg:block h-20 w-full border-t-2 border-slate-200 p-2">
-            <div className="max-w-screen-lg mx-auto flex items-center justify-evenly h-full">
+            <div className="max-w-screen-lg mx-auto gap-4 md:flex md:flex-row md:items-center md:justify-center md:pt-8">
                 <Link href="https://github.com/RikhiSingh" target="_blank" passHref>
-                    <Button size="lg" variant="ghost" className="w-full">
+                    <Button size="lg" variant="ghost" className="w-full sm:my-4 md:my-0">
                         <Image
                             src="/github.svg"
                             alt="Github"
@@ -19,7 +19,7 @@ export const Footer = () => {
                     </Button>
                 </Link>
                 <Link href="https://www.linkedin.com/in/rikhi-singh/" target="_blank" passHref>
-                    <Button size="lg" variant="ghost" className="w-full">
+                    <Button size="lg" variant="ghost" className="w-full sm:my-4 md:my-0">
                         <Image
                             src="/linkedIn.png"
                             alt="LinkedIn"
@@ -31,7 +31,7 @@ export const Footer = () => {
                     </Button>
                 </Link>
                 <Link href="https://www.instagram.com/rikhi_singh/" target="_blank" passHref>
-                    <Button size="lg" variant="ghost" className="w-full">
+                    <Button size="lg" variant="ghost" className="w-full sm:my-4 md:my-0">
                         <Image
                             src="/igLogo.svg"
                             alt="Instagram"

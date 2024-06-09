@@ -14,7 +14,8 @@ export default async function Home() {
     <section className="min-h-screen bg-grid-zinc-50">
       <Header />
       <Separator />
-      <MaxWidthWrapper className="relative pb-24 pt-10 sm:pb-32 lg:pt-24 xl:pt-32 lg:pb-52">
+      {/* <MaxWidthWrapper className="relative pb-24 pt-10 sm:pb-32 lg:pt-24 xl:pt-32 lg:pb-52"> */}
+      <MaxWidthWrapper className="relative pt-10">
 
         <div className="px-6 lg:px-0 lg:pt-4">
           <div className="relative mx-auto text-center flex flex-col items-center">
